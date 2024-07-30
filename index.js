@@ -27,7 +27,31 @@ app.get("/api/hello", function (req, res) {
 
 // timestamp API endpoint
 app.get("/api/:date?", function (req, res) {
-  res.json({greeting: 'hello Pussy'});
+  let date = req.params.date;
+  console.log(`date is: ${date}`);
+  console.log(typeof date);
+
+  if (!date) {
+    date = new Date();
+  }else{
+    // check if the date is a valid Unix timestamp
+    if(!isNaN(date)){
+      date = new Date(parseInt(date))
+    }else{
+      date = new Date(date)
+    }    
+  }
+  console.log(`date is: ${date}`);
+  console.log(typeof date);
+  //we need use toString(), because date now is an object
+  if(date.toString() === "Invalid Date"){
+    res.json({error:"Invalid Date"})
+  }else{
+    res.json({
+      unix: date.getTime(),
+      utc: date.toUTCString()
+    })
+  }  
 });
 
 
