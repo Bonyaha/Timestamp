@@ -2,6 +2,7 @@
 // where your node app starts
 
 // init project
+require('dotenv').config();
 var express = require('express');
 var app = express();
 
@@ -24,6 +25,10 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// timestamp API endpoint
+app.get("/api/:date?", function (req, res) {
+  res.json({greeting: 'hello Pussy'});
+});
 
 
 // Listen on port set in environment variable or default to 3000
